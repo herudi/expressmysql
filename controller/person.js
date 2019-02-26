@@ -27,6 +27,18 @@ person.byId = async function (req, res) {
     }
 }
 
+//search name
+person.search = async function (req, res) {
+    try {
+        var name = req.params.name;
+        var query = `select * from person where name like '%${name}%'`;
+        var persons = await db_connect.query(query);
+        res.send(persons);
+    } catch(err) {
+        throw new Error(err);
+    }
+}
+
 //create person
 person.create = async function (req, res) {
     try {
